@@ -2,6 +2,7 @@ package com.erns.canvaspre.model.dao;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import com.erns.canvaspre.model.ent.RoomAndVertex;
@@ -14,7 +15,7 @@ import java.util.Map;
 
 @Dao
 public interface RoomDao {
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(List<RoomEntity> roomEntityList);
 
     @Query("select * from rooms")

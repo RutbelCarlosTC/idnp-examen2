@@ -2,6 +2,7 @@ package com.erns.canvaspre.model.dao;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import com.erns.canvaspre.model.ent.PictureEntity;
@@ -10,7 +11,7 @@ import java.util.List;
 
 @Dao
 public interface PictureDao {
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(List<PictureEntity> pictureEntityList);
 
     @Query("select * from pictures")
