@@ -4,6 +4,7 @@ import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
+import com.erns.canvaspre.model.ent.CommentEntity;
 import com.erns.canvaspre.model.ent.DoorEntity;
 import com.erns.canvaspre.model.ent.PictureEntity;
 import com.erns.canvaspre.model.ent.RoomAndVertex;
@@ -21,12 +22,9 @@ public class GalleryRepository {
         this.appDatabase = appDatabase;
     }
 
-
-
     public List<PictureEntity> getPictures() {
         return appDatabase.pictureDao().getAll();
     }
-
 
     public List<VertexEntity> getVertexes() {
         return appDatabase.vertexDao().getAll();
@@ -51,14 +49,16 @@ public class GalleryRepository {
     public List<PictureEntity> getPicturesByRoomId(int roomId) {
         return appDatabase.pictureDao().getPicturesByRoomId(roomId);
     }
+
     public PictureEntity getPictureById(int pictureId) {
-        Log.d("TAG","GalleryRepository pictureId:"+pictureId);
+        Log.d("TAG", "GalleryRepository pictureId:" + pictureId);
         return appDatabase.pictureDao().getPictureById(pictureId);
     }
 
     public void addPictures(List<PictureEntity> pictureEntityList) {
         appDatabase.pictureDao().insert(pictureEntityList);
     }
+
     public void addDoors(List<DoorEntity> doorEntityList) {
         appDatabase.doorDao().insert(doorEntityList);
     }
@@ -69,5 +69,21 @@ public class GalleryRepository {
 
     public void addVertexes(List<VertexEntity> vertexEntityList) {
         appDatabase.vertexDao().insert(vertexEntityList);
+    }
+
+    public List<CommentEntity> getCommentsByPictureId(int pictureId) {
+        return appDatabase.commentDao().getCommentsByPictureId(pictureId);
+    }
+
+    public void addComment(CommentEntity comment) {
+        appDatabase.commentDao().insert(comment);
+    }
+
+    public void addComments(List<CommentEntity> comments) {
+        appDatabase.commentDao().insertAll(comments);
+    }
+
+    public void deleteCommentsByPictureId(int pictureId) {
+        appDatabase.commentDao().deleteCommentsByPictureId(pictureId);
     }
 }

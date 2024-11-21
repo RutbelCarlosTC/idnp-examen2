@@ -7,29 +7,77 @@
     android:background="#ffecd8"
     tools:context=".fragments.HomeFragment">
 
-
-    <Button
-        android:id="@+id/btnFillRooms"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/txtWelcome"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="200dp"
-        android:layout_marginEnd="32dp"
-        android:text="Fill Database"
+        android:layout_marginTop="32dp"
+        android:text="¡Bienvenidos!"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:textColor="#454576"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtWelcome2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:fontFamily="georgia"
+        android:text="Galería"
+        android:textColor="#454576"
+        android:textSize="100sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtWelcome"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/txtWelcome3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:fontFamily="georgia"
+        android:text="UNSA"
+        android:textColor="#454576"
+        android:textSize="100sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.608"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtWelcome2"
+        tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/btnReadRooms"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="42dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
         android:text="Read Database"
+        android:backgroundTint="#454576"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btnFillRooms" />
+
+    <Button
+        android:id="@+id/btnFillRooms"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="468dp"
+        android:layout_marginEnd="32dp"
+        android:text="Fill Database"
+        android:backgroundTint="#454576"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
