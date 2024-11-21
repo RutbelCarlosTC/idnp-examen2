@@ -9,4 +9,7 @@
         android:id="@+id/menu_map_room"
         android:icon="@drawable/baseline_album_24"/>
 
+    <item android:title="Pictures"
+        android:id="@+id/menu_list_pictures"
+        android:icon="@drawable/baseline_crop_landscape_24"/>
 </menu>
