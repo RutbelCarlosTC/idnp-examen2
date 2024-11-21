@@ -32,12 +32,11 @@ public class PictureFragment extends Fragment implements PictureFragmentListener
     private TextView txtTitle;
     private TextView txtDescription;
     private ImageView imageView;
-    private int roomId = 200;//NOT FOUND
+    private int roomId = 200; // NOT FOUND
     private int pictureId;
 
     public PictureFragment() {
         // Required empty public constructor
-        //this.roomViewListener = roomViewListener;
     }
 
     public static PictureFragment newInstance(int pictureId) {
@@ -45,7 +44,6 @@ public class PictureFragment extends Fragment implements PictureFragmentListener
         Bundle args = new Bundle();
         args.putInt(ARG_PARAM2, pictureId);
         fragment.setArguments(args);
-
         return fragment;
     }
 
@@ -58,23 +56,33 @@ public class PictureFragment extends Fragment implements PictureFragmentListener
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_picture, container, false);
-
     }
 
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         repository = new GalleryRepository(AppDatabase.getInstance(requireContext()));
+
         ImageButton btnCerrar = view.findViewById(R.id.btnCerrar);
         txtTitle = view.findViewById(R.id.txtTitle);
         txtDescription = view.findViewById(R.id.txtDescription);
         imageView = view.findViewById(R.id.imageView);
+        Button btnShowComments = view.findViewById(R.id.btnShowComments); // Botón para mostrar los comentarios
 
         btnCerrar.setOnClickListener(btnCerrar_onClick);
+        btnShowComments.setOnClickListener(v -> {
+            // Mostrar fragmento de comentarios al hacer clic
+            CommentsFragment commentsFragment = CommentsFragment.newInstance(pictureId);
+            requireActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragmentContainerView, commentsFragment)
+                    .addToBackStack(null)
+                    .commit();
+        });
+
         eventViewModel = new ViewModelProvider(requireActivity()).get(EventViewModel.class);
         Log.d("TAG", "fragment_picture:" + pictureId);
         loadPictures(pictureId);
@@ -91,12 +99,12 @@ public class PictureFragment extends Fragment implements PictureFragmentListener
     @Override
     public void onResultPicture(PictureEntity pictureEntity) {
         roomId = pictureEntity.roomId;
-        FileRepository fileRepository=new FileRepository(getContext());
-        Bitmap bitmap=fileRepository.getPicture(pictureEntity.link);
-        setText(txtTitle, txtDescription,imageView, pictureEntity,bitmap);
+        FileRepository fileRepository = new FileRepository(getContext());
+        Bitmap bitmap = fileRepository.getPicture(pictureEntity.link);
+        setText(txtTitle, txtDescription, imageView, pictureEntity, bitmap);
     }
 
-    private void setText(final TextView _txtTitle, final TextView _txtDescription, final ImageView _imageView, final PictureEntity _pictureEntity,final Bitmap _bitmap) {
+    private void setText(final TextView _txtTitle, final TextView _txtDescription, final ImageView _imageView, final PictureEntity _pictureEntity, final Bitmap _bitmap) {
         requireActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -110,11 +118,9 @@ public class PictureFragment extends Fragment implements PictureFragmentListener
     private void loadPictures(int id) {
         Log.d("TAG", "------close fragment:" + id);
         ExecuteTask executeTask = new ExecuteTask();
-        executeTask.asyncTask(() ->
-                {
-                    Log.d("TAG", "loadPictures------close fragment:" + id);
-                    pictureFragmentListener.onResultPicture(repository.getPictureById(id));
-                }
-        );
+        executeTask.asyncTask(() -> {
+            Log.d("TAG", "loadPictures------close fragment:" + id);
+            pictureFragmentListener.onResultPicture(repository.getPictureById(id));
+        });
     }
 }
