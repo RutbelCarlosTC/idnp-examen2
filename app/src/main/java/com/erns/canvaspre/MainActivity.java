@@ -26,6 +26,9 @@ import com.erns.canvaspre.fragments.RoomFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
+import com.erns.canvaspre.fragments.ListFragment;
+
+
 public class MainActivity extends AppCompatActivity
         implements RoomViewListener {
     private final String TAG = "MainActivity";
@@ -100,6 +103,10 @@ public class MainActivity extends AppCompatActivity
             } else if (item.getItemId() == R.id.menu_map_room) {
                 galleryFragment = GalleryFragment.newInstance();
                 loadFragment(galleryFragment);
+                return true;
+            }else if (item.getItemId() == R.id.menu_list_pictures) {
+                Fragment listFragment = ListFragment.newInstance();
+                loadFragment(listFragment);
                 return true;
             } else {
                 return false;
