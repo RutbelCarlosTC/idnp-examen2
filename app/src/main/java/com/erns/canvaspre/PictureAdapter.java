@@ -11,7 +11,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.erns.canvaspre.R;
+import com.erns.canvaspre.model.database.AppDatabase;
 import com.erns.canvaspre.model.database.FileRepository;
+import com.erns.canvaspre.model.database.GalleryRepository;
 import com.erns.canvaspre.model.ent.PictureEntity;
 
 import java.util.List;
@@ -19,7 +21,7 @@ import java.util.List;
 public class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.PictureViewHolder> {
 
     private final List<PictureEntity> pictureList;
-    private FileRepository fileRepository;
+    private GalleryRepository galleryRepository;
 
     public PictureAdapter(List<PictureEntity> pictureList) {
         this.pictureList = pictureList;
@@ -30,6 +32,8 @@ public class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.PictureV
     public PictureViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_picture, parent, false);
         return new PictureViewHolder(view);
+
+        //galleryRepository = new GalleryRepository(AppDatabase.getInstance(requireContext()));
     }
 
     @Override
