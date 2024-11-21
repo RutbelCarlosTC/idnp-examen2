@@ -194,53 +194,43 @@ public class RoomView extends View {
 
     private HashMap<String, Float> calculateFactor() {
         if (roomAndVertex.vertexEntityList == null) return null;
-        int leftX = (int) WIDTH;
-        int topY = (int) HEIGHT;
-        int rightX = 0;
-        int bottomY = 0;
+
+        // Calcular los límites del cuarto (bounding box)
+        float leftX = Float.MAX_VALUE, topY = Float.MAX_VALUE;
+        float rightX = Float.MIN_VALUE, bottomY = Float.MIN_VALUE;
 
         for (VertexEntity vertex : roomAndVertex.vertexEntityList) {
-            int x = (int) vertex.getX();
-            int y = (int) vertex.getY();
+            float x = vertex.getX();
+            float y = vertex.getY();
 
-            if (x < leftX)
-                leftX = x;
-
-            if (x > rightX)
-                rightX = x;
-
-            if (y > bottomY)
-                bottomY = y;
-
-            if (y < topY)
-                topY = y;
-
+            if (x < leftX) leftX = x;
+            if (x > rightX) rightX = x;
+            if (y < topY) topY = y;
+            if (y > bottomY) bottomY = y;
         }
 
-        float _factorX = WIDTH / (rightX - leftX);
-        float _factorY = HEIGHT / (bottomY - topY);
-        float scaleFactor = (0.86f) * Math.min(_factorX, _factorY);
+        // Dimensiones del cuarto original
+        float roomWidth = rightX - leftX;
+        float roomHeight = bottomY - topY;
 
-        Log.d("TAG", "scaleFactor:" + scaleFactor);
-        Log.d("TAG", "leftX:" + leftX + ", topY:" + topY + ", rightX:" + rightX + ", bottomY:" + bottomY);
+        // Calcular factor de escala (respetar relación de aspecto)
+        float scaleFactor = Math.min((WIDTH * 0.9f) / roomWidth, (HEIGHT * 0.9f) / roomHeight);
 
-        float room_width = scaleFactor * (rightX - leftX);
-        float room_height = scaleFactor * (bottomY - topY);
-
-//        offsetY = (int) (Math.abs(getHeight() - room_height) / 2);
-        float marginLeft = (int) (Math.abs(WIDTH - room_width) / 2);
+        // Calcular desplazamientos para centrar el cuarto
         float offsetX = leftX * scaleFactor;
         float offsetY = topY * scaleFactor;
+        float marginLeft = (WIDTH - (roomWidth * scaleFactor)) / 2;
+        float marginTop = (HEIGHT - (roomHeight * scaleFactor)) / 2;
 
-        //return new float[]{scaleFactor, offsetX, offsetY, marginLeft};
-
+        // Guardar valores en un HashMap
         HashMap<String, Float> params = new HashMap<>();
         params.put("SCALE", scaleFactor);
         params.put("OFFSET_X", offsetX);
         params.put("OFFSET_Y", offsetY);
         params.put("MARGIN_LEFT", marginLeft);
-        params.put("MARGIN_TOP", 80f);
+        params.put("MARGIN_TOP", marginTop);
 
+        Log.d("RoomView", "Scaling parameters: " + params);
         return params;
     }
 

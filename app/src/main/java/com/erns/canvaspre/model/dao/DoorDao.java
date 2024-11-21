@@ -12,7 +12,6 @@ import java.util.List;
 @Dao
 public interface DoorDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-
     void insert(List<DoorEntity> doorEntityList);
 
     @Query("select * from doors")

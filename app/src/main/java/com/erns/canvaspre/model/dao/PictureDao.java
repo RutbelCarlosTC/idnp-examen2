@@ -12,7 +12,6 @@ import java.util.List;
 @Dao
 public interface PictureDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-
     void insert(List<PictureEntity> pictureEntityList);
 
     @Query("select * from pictures")
